@@ -94,7 +94,17 @@ header.site {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  opacity: 0.85;
+  animation: note-blink 2.4s ease-in-out infinite;
+}
+
+/* Weicher Puls zwischen Bernstein und Verdigris — bleibt immer lesbar */
+@keyframes note-blink {
+  0%, 100% { color: var(--accent);   opacity: 1; text-shadow: 0 0 12px var(--accent-dim); }
+  50%      { color: var(--accent-2); opacity: 0.75; text-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-note { animation: none; }
 }
 
 header.site h1 {
