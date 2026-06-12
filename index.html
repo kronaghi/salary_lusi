@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zeitzuschläge – Tarifrechner</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <a class="profile-link" href="https://kronaghi.github.io/kronaghi/" title="Zur Profilseite">
+        <img src="profile.jpg" alt="Profilbild" class="profile-pic">
+      </a>
+      <span class="profile-note">Klicke oder tippe auf das Bild, um meine Hauptseite zu besuchen&nbsp;→</span>
+      <h1>Tarifrechner Zeitzuschläge</h1>
+      <span class="sub">Entgeltgruppen EG I–V &amp; PRM · Stand: Mai 2025 / April 2026</span>
+    </header>
+
+    <nav class="tabs">
+      <button class="active" data-panel="panel-calc">Rechner</button>
+      <button data-panel="panel-tables">Tariftabellen</button>
+      <button data-panel="panel-compare">Vergleich</button>
+    </nav>
+
+    <section id="panel-calc" class="panel active">
+      <div class="card">
+        <h2>Verdienst berechnen</h2>
+        <p class="hint">Abrechnungsdatum und Entgeltgruppe wählen, dann die geleisteten Stunden je Kategorie eintragen. Das Grundentgelt ergibt sich aus den regulären Arbeitsstunden × Stundenentgelt; Zuschlagsstunden werden nur mit dem jeweiligen Zuschlagsbetrag vergütet.</p>
+
+        <div class="controls">
+          <div class="field">
+            <label for="calc-date">Abrechnungsdatum</label>
+            <input type="date" id="calc-date">
+          </div>
+          <div class="field">
+            <label for="calc-eg">Entgeltgruppe</label>
+            <select id="calc-eg"></select>
+          </div>
+          <div class="field">
+            <label for="calc-period">Gültige Tabelle</label>
+            <select id="calc-period" disabled><option id="calc-period-label">–</option></select>
+          </div>
+          <div class="field actions">
+            <span class="field-spacer" aria-hidden="true">&nbsp;</span>
+            <div class="btn-row">
+              <button type="button" id="btn-print" class="btn">Drucken / PDF</button>
+              <button type="button" id="btn-reset" class="btn ghost">Zurücksetzen</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hours-grid" id="hours-grid"></div>
+
+        <div class="result">
+          <p class="hint" id="result-hours"></p>
+          <div class="result-columns">
+            <div class="result-col">
+              <h3>Steuerpflichtig</h3>
+              <table><tbody id="result-taxable"></tbody></table>
+            </div>
+            <div class="result-col">
+              <h3>Steuerfrei</h3>
+              <table><tbody id="result-taxfree"></tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="panel-tables" class="panel">
+      <div id="tables-host"></div>
+    </section>
+
+    <section id="panel-compare" class="panel">
+      <div class="card">
+        <h2>Tariferhöhung Mai 2025 → April 2026</h2>
+        <p class="hint">Entwicklung des Stundenentgelts je Entgeltgruppe. Die Zuschläge steigen im gleichen Verhältnis, da sie prozentual vom Stundenentgelt abgeleitet sind.</p>
+        <div class="table-scroll">
+          <table class="tariff compare" id="compare-table"></table>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site">
+      Alle Angaben ohne Gewähr. Datenbasis: Tariftabelle „Steuerfreie Zeitzuschläge für tatsächlich geleistete Arbeit zu ungünstigen Arbeitszeiten“.
+      <div class="copyright">© 2026 Kambiz Ronaghi. All rights reserved.</div>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

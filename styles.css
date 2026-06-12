@@ -1,0 +1,462 @@
+/* ════════════════════════════════════════════════════════════
+   Twilight Workshop — Tarifrechner, abgestimmt auf kr.dev
+   Mid-tone dusk slate · ember amber accent · verdigris secondary
+   ════════════════════════════════════════════════════════════ */
+:root {
+  --bg:        #515a68;
+  --bg-2:      #5a6471;
+  --bg-3:      #65707e;
+  --bg-deep:   #454d59;
+  --line:      rgba(255, 185, 103, 0.07);
+  --accent:    #ffb967;
+  --accent-dim: rgba(255, 185, 103, 0.18);
+  --accent-2:  #8fd0c2;
+  --ink:       #2c323d;
+  --text:      #f6f2e9;
+  --text-dim:  #d6dbe2;
+  --border:    rgba(255, 185, 103, 0.28);
+  --border-soft: rgba(255, 185, 103, 0.14);
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Lora', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 12px;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+/* Blueprint-Raster wie auf der Hauptseite */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Kopfbereich ── */
+header.site {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.profile-link {
+  display: block;
+  border-radius: 50%;
+  line-height: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.profile-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 6px var(--accent-dim), 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.profile-pic {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.profile-note {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
+header.site h1 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.7rem;
+  margin: 6px 0 0;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+header.site .sub {
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── Tabs ── */
+nav.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+nav.tabs button {
+  appearance: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--border-soft);
+  background: var(--bg-2);
+  color: var(--text-dim);
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+nav.tabs button:hover {
+  color: var(--accent);
+  border-color: var(--border);
+}
+
+nav.tabs button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* ── Karten ── */
+.card {
+  background: var(--bg-2);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.card h2 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  margin: 0 0 4px;
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.card .hint {
+  color: var(--text-dim);
+  font-size: 0.86rem;
+  margin: 0 0 18px;
+}
+
+/* ── Formular ── */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field label,
+.field .field-spacer {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+select, input[type="number"], input[type="date"] {
+  font-family: var(--font-mono);
+  background: var(--bg-deep);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 9px 11px;
+  font-size: 0.9rem;
+  min-width: 140px;
+  transition: border-color 0.2s;
+}
+
+select:hover, input:hover { border-color: var(--border); }
+
+select:focus, input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+input::placeholder { color: rgba(214, 219, 226, 0.45); }
+
+select:disabled {
+  color: var(--text-dim);
+  opacity: 1;
+}
+
+.hours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+
+.hour-item {
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.hour-item:hover {
+  border-color: var(--border);
+  transform: translateY(-2px);
+}
+
+.hour-item .name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--text);
+  min-height: 2.2em;
+}
+
+.hour-item .meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.hour-item input { min-width: 0; width: 100%; }
+
+.badge {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.badge.frei { background: rgba(143, 208, 194, 0.18); color: var(--accent-2); border: 1px solid rgba(143, 208, 194, 0.4); }
+.badge.pflichtig { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--border); }
+
+/* ── Ergebnis ── */
+.result {
+  margin-top: 20px;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 18px;
+}
+
+.result > .hint { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; }
+
+.result-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 720px) {
+  .result-columns { grid-template-columns: 1fr; }
+}
+
+.result-col {
+  background: var(--bg-3);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+
+.result-col h3 {
+  font-family: var(--font-mono);
+  margin: 0 0 12px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 9px;
+}
+
+.result-col:last-child h3 { color: var(--accent-2); }
+
+.result table { width: 100%; border-collapse: collapse; }
+
+.result td {
+  padding: 7px 4px;
+  font-size: 0.9rem;
+  color: var(--text);
+  border-bottom: 1px dashed rgba(214, 219, 226, 0.18);
+}
+
+.result td:last-child {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+}
+
+.result tr.total td {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: none;
+  padding-top: 13px;
+}
+
+.result-col:last-child tr.total td { color: var(--accent-2); }
+
+.result tr.muted td { color: var(--text-dim); }
+
+/* ── Buttons ── */
+.btn-row { display: flex; gap: 8px; }
+
+.btn {
+  appearance: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 500;
+  padding: 9px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover { box-shadow: 0 0 16px var(--accent-dim); filter: brightness(1.06); }
+
+.btn.ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border-color: var(--border-soft);
+}
+
+.btn.ghost:hover { color: var(--accent); border-color: var(--border); box-shadow: none; }
+
+/* ── Tariftabellen ── */
+.table-scroll { overflow-x: auto; }
+
+table.tariff {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 860px;
+  font-size: 0.82rem;
+}
+
+table.tariff th, table.tariff td {
+  border: 1px solid var(--border-soft);
+  padding: 8px 10px;
+  text-align: right;
+  font-family: var(--font-mono);
+}
+
+table.tariff th {
+  background: var(--bg-deep);
+  color: var(--accent);
+  font-weight: 500;
+  text-align: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+table.tariff td { color: var(--text); }
+
+table.tariff td:first-child {
+  text-align: left;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(69, 77, 89, 0.5);
+}
+
+table.tariff tbody tr:nth-child(even) td:not(:first-child) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+table.tariff tbody tr:hover td:not(:first-child) {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+
+/* ── Footer ── */
+footer.site {
+  margin-top: 16px;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+footer.site .copyright {
+  font-family: var(--font-mono);
+  margin-top: 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+footer.site .copyright::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 10px auto;
+}
+
+/* ── Druck: nur die Abrechnung, auf weißem Grund ── */
+@media print {
+  body { background: #fff; color: #000; font-size: 12px; }
+  body::before { display: none; }
+  nav.tabs, .hours-grid, .btn-row, footer.site, #panel-tables, #panel-compare { display: none !important; }
+  .card, .result-col {
+    background: #fff;
+    border-color: #999;
+    box-shadow: none;
+  }
+  .card h2, .card .hint, .field label, .result-col h3, .result td,
+  .result tr.total td, .result-col:last-child tr.total td { color: #000; }
+  select, input { background: #fff; color: #000; border-color: #999; }
+  .badge.frei, .badge.pflichtig { background: #ddd; color: #000; border-color: #999; }
+}
