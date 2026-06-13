@@ -107,8 +107,8 @@ function renderHourInputs(period, row) {
     div.innerHTML = `
       <div class="name">${item.label}</div>
       <div class="meta"><span>${fmt.format(item.rate)}/Std. ${item.key === "normal" ? "" : "Zuschlag"}</span>${badge}</div>
-      <input type="number" min="0" step="0.25" inputmode="decimal" placeholder="Stunden"
-             data-key="${item.key}" value="${state.hours[item.key] ?? ""}">
+      <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]*" placeholder="Stunden"
+             autocomplete="off" data-key="${item.key}" value="${state.hours[item.key] ?? ""}">
     `;
     grid.appendChild(div);
   });
