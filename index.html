@@ -4,19 +4,23 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tarifrechner für Zeitzuschläge – Entgeltgruppen EG I–V & PRM. Verdienst mit steuerpflichtigen und steuerfreien Zuschlägen berechnen.">
   <title>Zeitzuschläge – Tarifrechner</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=JetBrains+Mono:wght@400;500;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="wrap">
     <header class="site">
       <a class="profile-link" href="https://kronaghi.github.io/kronaghi/" title="Zur Profilseite">
-        <img src="profile.jpg" alt="Profilbild" class="profile-pic">
+        <picture>
+          <source srcset="profile.webp" type="image/webp">
+          <img src="profile.jpg" alt="Profilbild" class="profile-pic" width="110" height="110" decoding="async">
+        </picture>
       </a>
       <span class="profile-note">Klicke oder tippe auf das Bild, um meine Hauptseite zu besuchen&nbsp;→</span>
       <h1>Tarifrechner Zeitzuschläge</h1>
@@ -94,7 +98,7 @@
     </footer>
   </div>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
