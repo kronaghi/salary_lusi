@@ -8,9 +8,10 @@
   <title>Zeitzuschläge – Tarifrechner</title>
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=JetBrains+Mono:wght@400;500;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Selbst gehostete Schriften: keine Drittanbieter-Requests, schnellerer Erstaufbau -->
+  <link rel="preload" href="fonts/syne-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/lora-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/jetbrains-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -34,6 +35,23 @@
     </nav>
 
     <section id="panel-calc" class="panel active">
+      <figure class="schichtbogen" aria-label="24-Stunden-Übersicht: wann welche Zuschläge anfallen">
+        <figcaption>Dein Verdienst ist eine Funktion der Uhrzeit</figcaption>
+        <div class="clock">
+          <div class="zone night left" aria-hidden="true"></div>
+          <div class="zone night right" aria-hidden="true"></div>
+          <span class="now-marker" id="now-marker" aria-hidden="true"></span>
+        </div>
+        <div class="ticks" aria-hidden="true">
+          <span>00</span><span>06</span><span>12</span><span>18</span><span>24</span>
+        </div>
+        <div class="legend">
+          <span class="key day">Regulär 6–20&nbsp;Uhr</span>
+          <span class="key night">Nacht 20–6&nbsp;Uhr · steuerfrei ab +25&nbsp;%</span>
+          <span class="key special">Sonn- &amp; Feiertage · ganztägig +50 bis +150&nbsp;%</span>
+        </div>
+      </figure>
+
       <div class="card">
         <h2>Verdienst berechnen</h2>
         <p class="hint">Abrechnungsdatum und Entgeltgruppe wählen, dann die geleisteten Stunden je Kategorie eintragen. Das Grundentgelt ergibt sich aus den regulären Arbeitsstunden × Stundenentgelt; Zuschlagsstunden werden nur mit dem jeweiligen Zuschlagsbetrag vergütet.</p>

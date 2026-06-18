@@ -252,6 +252,17 @@ function renderComparison() {
   table.appendChild(tbody);
 }
 
+// ---------- Schichtbogen: aktuelle Uhrzeit markieren ----------
+function positionNowMarker() {
+  const marker = $("#now-marker");
+  if (!marker) return;
+  const now = new Date();
+  const decimalHour = now.getHours() + now.getMinutes() / 60;
+  marker.parentElement.style.setProperty("--now", (decimalHour / 24 * 100).toFixed(2) + "%");
+}
+
 initControls();
 renderTables();
 renderComparison();
+positionNowMarker();
+setInterval(positionNowMarker, 60000);
