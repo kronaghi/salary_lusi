@@ -620,6 +620,17 @@ footer.site .copyright {
   color: var(--text-dim);
 }
 
+footer.site .copyright a {
+  color: var(--accent-2);
+  text-decoration: none;
+}
+
+footer.site .copyright a:hover,
+footer.site .copyright a:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 footer.site .copyright::before {
   content: '';
   display: block;
