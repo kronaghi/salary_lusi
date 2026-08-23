@@ -22,6 +22,14 @@ python3 -m http.server 8642      # recommended; then open http://localhost:8642
 There is no test suite, linter, or build/bundle command — changes are verified by loading
 the page in a browser and exercising the UI directly.
 
+## Repository & deployment
+
+This directory is the git working copy of **github.com/kronaghi/salary_lusi** (`origin`,
+branch `main`). `.github/workflows/deploy.yml` deploys `main` to GitHub Pages via
+`actions/deploy-pages` on every push — no manual build step, no `gh-pages` branch. Live site:
+**https://kronaghi.github.io/salary_lusi/** (no custom domain/CNAME). After pushing to `main`,
+`gh run list --repo kronaghi/salary_lusi` shows the deploy status.
+
 ## Architecture
 
 Four files carry the entire app, loaded in this order from `index.html`: `data.js` → `app.js`
@@ -59,8 +67,11 @@ Four files carry the entire app, loaded in this order from `index.html`: `data.j
   `#result-taxable`/`#result-taxfree`, `#calc-eg`, etc.) are populated entirely by `app.js`.
 
 - **`styles.css`** — "Twilight Workshop" visual style (evening slate + amber accent +
-  verdigris secondary), matching kronaghi.github.io/kronaghi, plus a print stylesheet for
-  the "Drucken / PDF" button (renders the billing view on white background).
+  verdigris secondary), matching the author's site at ai-ronaghi.de, plus a print stylesheet
+  for the "Drucken / PDF" button (renders the billing view on white background).
+
+Both the header profile picture link and the footer credit link point to
+**https://ai-ronaghi.de/** (the author's main site).
 
 ## Key domain logic to preserve
 
